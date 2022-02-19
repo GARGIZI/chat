@@ -1,6 +1,6 @@
 import { format  } from "date-fns";
 import Cookies from "js-cookie";
-import { UI, API } from "./view.js";
+import { UI, API } from "../node_modules";
 
 UI.BTN_SEND_MESSAGE.addEventListener('click', sendMessage);
 UI.FIELD_MESSAGE.addEventListener('keydown', function(event) {
@@ -9,6 +9,7 @@ UI.FIELD_MESSAGE.addEventListener('keydown', function(event) {
     sendMessage();
   }
 });
+
 
 function sendMessage() {
   const textMessage = UI.TEMPLATE.content.querySelector('p');
