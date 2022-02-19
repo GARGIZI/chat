@@ -1,0 +1,274 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type='submit'] {
+  cursor: pointer;
+}
+
+.chat {
+  max-width: 350px;
+}
+
+.chat__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.chat__top-item {
+  padding: 5px;
+  background: none;
+  border: 1px solid;
+}
+
+.chat__mainContent {
+  margin: 5px 0;
+  padding: 0 25px;
+  height: 300px;
+  border: 1px solid;
+  overflow: hidden;
+  overflow-y: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chat__mainContent .message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  align-items: end;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.chat__chatText {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+}
+
+.chat__chatText input {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 3px;
+}
+
+.chat__chatText-send {
+  padding: 0 5px;
+}
+
+.createAcc {
+  margin-top: 100px;
+  border: 1px solid;
+  padding: 10px 5px;
+  width: 350px;
+}
+
+.createAcc__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.createAcc__top div svg {
+  cursor: pointer;
+}
+
+.createAcc__form-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.createAcc__form-item label {
+  margin-bottom: 5px;
+}
+
+.createAcc__form-item input {
+  padding: 3px;
+}
+
+.createAcc__form-item:not(:first-child) {
+  margin-top: 10px;
+}
+
+.createAcc__form input {
+  background: none;
+  border: 1px solid;
+  padding: 6px;
+  margin-top: 10px;
+}
+
+.createAcc__anotherWay {
+  margin-top: 20px;
+}
+
+.createAcc__anotherWay button {
+  background: none;
+  border: none;
+  font-size: 16px;
+}
+
+.lognIn {
+  margin-top: 100px;
+  border: 1px solid;
+  padding: 10px 5px;
+  width: 350px;
+}
+
+.lognIn__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.lognIn__top div svg {
+  cursor: pointer;
+}
+
+.lognIn__form-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.lognIn__form-item label {
+  margin-bottom: 5px;
+}
+
+.lognIn__form-item input {
+  padding: 3px;
+}
+
+.lognIn__form-item:not(:first-child) {
+  margin-top: 10px;
+}
+
+.lognIn__form input {
+  background: none;
+  border: 1px solid;
+  padding: 6px;
+  margin-top: 10px;
+}
+
+.lognIn__anotherWay {
+  margin-top: 20px;
+}
+
+.lognIn__anotherWay button {
+  background: none;
+  border: none;
+  font-size: 16px;
+}
+
+.reg {
+  margin-top: 100px;
+  border: 1px solid;
+  padding: 10px 5px;
+  width: 350px;
+}
+
+.reg__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.reg__top div svg {
+  cursor: pointer;
+}
+
+.reg__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.reg__form label {
+  margin-bottom: 5px;
+}
+
+.reg__form div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.reg__form div input {
+  padding: 3px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.reg__form div input[type='submit'] {
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  padding: 0 5px;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="chat">
+      <div class="chat__top">
+        <button class="chat__top-item setting">Найстроки</button>
+        <button class="chat__top-item exit">Выйти</button>
+      </div>
+      <div class="chat__mainContent">
+        <template>
+          <div class="message">
+            <p class="message__text">Я:</p>
+            <span class="message__time"></span>
+          </div>
+        </template>
+      </div>
+      <form action="#" class="chat__chatText">
+        <input type="text" placeholder="сообщение..." />
+        <button class="chat__chatText-send">-></button>
+      </form>
+    </div>
+    <div class="createAcc">
+      <div class="createAcc__top">
+        <div class="createAcc__top-title">Подтверждение</div>
+        <div class="createAcc__top-close">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.45"
+              d="M9.10102 6.89671L12.4653 3.53243L13.9154 4.98255L10.5511 8.34683L14.3629 12.1586L12.8216 13.6999L9.00987 9.88811L5.64559 13.2524L4.19547 11.8023L7.55975 8.43798L4.03803 4.91626L5.5793 3.37499L9.10102 6.89671Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+      </div>
+      <form action="#" class="createAcc__form">
+        <div class="createAcc__form-item">
+          <label for="name">Код</label>
+          <input id="name" type="text" required class="createAcc__form-input" />
+        </div>
+        <input type="submit" value="Войти" class="createAcc__form-btn" />
+      </form>
+    </div>
+    <div class="lognIn">
+      <div class="lognIn__top">
+        <div class="lognIn__top-title">Авторизация</div>
+        <div class="lognIn__top-close">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.45"
+              d="M9.10102 6.89671L12.4653 3.53243L13.9154 4.98255L10.5511 8.34683L14.3629 12.1586L12.8216 13.6999L9.00987 9.88811L5.64559 13.2524L4.19547 11.8023L7.55975 8.43798L4.03803 4.91626L5.5793 3.37499L9.10102 6.89671Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+      </div>
+      <form action="#" class="lognIn__form">
+        <div class="lognIn__form-item">
+          <label for="name">Почта:</label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Ваша почта"
+            required
+            class="lognIn__form-input"
+          />
+        </div>
+        <input type="submit" value="Получить код" class="lognIn__form-btn" />
+      </form>
+    </div>
+    <div class="reg">
+      <div class="reg__top">
+        <div class="reg__top-title">Найстроки</div>
+        <div class="reg__top-close">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.45"
+              d="M9.10102 6.89671L12.4653 3.53243L13.9154 4.98255L10.5511 8.34683L14.3629 12.1586L12.8216 13.6999L9.00987 9.88811L5.64559 13.2524L4.19547 11.8023L7.55975 8.43798L4.03803 4.91626L5.5793 3.37499L9.10102 6.89671Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+      </div>
+      <form action="#" class="reg__form">
+        <label for="name">Имя в чате</label>
+        <div class="">
+          <input id="name" type="text" placeholder="Стив" />
+          <input type="submit" value="->" />
+        </div>
+      </form>
+    </div>
+    <script src="./js/app.js" type="module"></script>
+  </body>
+</html>
