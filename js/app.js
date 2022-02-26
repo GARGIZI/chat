@@ -22,25 +22,8 @@ function sendMessage() {
   }));
 
   socket.onmessage = function (event) {
-    const data = JSON.parse(event.data);
-    const textMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message p');
-    const timeMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message span');
-    const getNowTime = () => format(Date.now(), 'p').slice(0,5);
-    textMessage.textContent = data.text;
-    timeMessage.textContent = getNowTime();
-    const parentElement = textMessage.parentElement;
-  
-    if (data.user.email === Cookies.get('email')) {
-      parentElement.style.background = 'blue';
-      parentElement.style.alignSelf = 'flex-end';
-    } else {
-      parentElement.style.background = 'gray';
-      parentElement.style.alignSelf = 'flex-start';
-    }
-  
-    const message = UI.BLOCKS.CHAT.TEMPLATE.content.cloneNode(true);
-  
-    UI.BLOCKS.CHAT.TRACK_MESSAGE.prepend(message);
+    UI.BLOCKS.CHAT.TRACK_MESSAGE.prepend(messageCompletion(JSON.parse(event.data)));
+    UI.BLOCKS.CHAT.FIELD_MESSAGE.parentElement.reset(); 
   };
 }
 
@@ -100,16 +83,16 @@ function scrollUpdate() {
     if (length < 20) {
       arrUsers.push(data[i]);
       if (i === length - 1) {
-      localStorage.setItem('arr', JSON.stringify(arrUsers));
-      renderMessages(JSON.parse(localStorage.getItem('arr')));
+      localStorage.setItem('arrUsers', JSON.stringify(arrUsers));
+      renderMessagesHistory(JSON.parse(localStorage.getItem('arrUsers')));
       data.splice(0, length);
       localStorage.setItem('data', JSON.stringify(data));
-      alert('The end');
+      alert('Вся история загружена');
       }
     }
     if (i === 20) {
-      localStorage.setItem('arr', JSON.stringify(arrUsers));
-      renderMessages(JSON.parse(localStorage.getItem('arr')));
+      localStorage.setItem('arrUsers', JSON.stringify(arrUsers));
+      renderMessagesHistory(JSON.parse(localStorage.getItem('arrUsers')));
       data.splice(0,20);
       localStorage.setItem('data', JSON.stringify(data));
       break; 
@@ -124,30 +107,30 @@ UI.BLOCKS.CHAT.TRACK_MESSAGE.addEventListener('scroll', function () {
   }
 });
 
-function renderMessages(data) {
+function renderMessagesHistory(data) {
+  data.forEach(item => {
+    UI.BLOCKS.CHAT.TRACK_MESSAGE.append(messageCompletion(item));
+  });
+  localStorage.removeItem('arrUsers');
+}
+
+function messageCompletion(item) {
   const textMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message p');
   const timeMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message span');
   const getNowTime = () => format(Date.now(), 'p').slice(0,5);
 
-  data.forEach(item => {
-    textMessage.textContent = item.text;
-    timeMessage.textContent = getNowTime();
-    const parentElement = textMessage.parentElement;
-  
-    if (item.user.email === Cookies.get('email')) {
-      parentElement.style.background = 'blue';
-      parentElement.style.alignSelf = 'flex-end';
-    } else {
-      parentElement.style.background = 'gray';
-      parentElement.style.alignSelf = 'flex-start';
-    }
-  
-    const message = UI.BLOCKS.CHAT.TEMPLATE.content.cloneNode(true);
-  
-    UI.BLOCKS.CHAT.TRACK_MESSAGE.append(message);
-  });
+  textMessage.textContent = item.text;
+  timeMessage.textContent = getNowTime();
+  const parentElement = textMessage.parentElement;
 
-  localStorage.removeItem('arr');
+  if (item.user.email === Cookies.get('email')) {
+    parentElement.style.background = 'blue';
+    parentElement.style.alignSelf = 'flex-end';
+  } else {
+    parentElement.style.background = 'gray';
+    parentElement.style.alignSelf = 'flex-start';
+  }
 
-  UI.BLOCKS.CHAT.FIELD_MESSAGE.parentElement.reset(); 
+  const message = UI.BLOCKS.CHAT.TEMPLATE.content.cloneNode(true);
+  return message;
 }
