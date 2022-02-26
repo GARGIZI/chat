@@ -1,18 +1,26 @@
 export const UI = {
-  BTN_SEND_MESSAGE: document.querySelector('.chat__chatText-send'),
-  FIELD_MESSAGE: document.querySelector('.chat__chatText-send'),
-  TEMPLATE: document.querySelector('.chat__chatText-send'),
-  TRACK_MESSAGE: document.querySelector('.chat__chatText-send'),
+  BLOCKS: {
+    LOGIN: {
+      BLOCK: document.querySelector('.lognIn'),
+      INPUT: document.querySelector('.lognIn__form-input'),
+      BTN: document.querySelector('.lognIn__form-btn'),
+    },
 
-  GET_CODE: {
-    INPUT: document.querySelector('.lognIn__form-input'),
-    BTN: document.querySelector('.lognIn__form-btn'),
+    
+    CONFIRMATIOM: {
+      BLOCK: document.querySelector('.сonfirmation'),
+      INPUT: document.querySelector('.сonfirmation__form-input'),
+      BTN: document.querySelector('.сonfirmation__form-btn'),
+    },
+    
+    CHAT: {
+      BLOCK: document.querySelector('.chat'),
+      BTN_SEND_MESSAGE: document.querySelector('.chat__chatText-send'),
+      FIELD_MESSAGE: document.querySelector('.chat__chatText input'),
+      TEMPLATE: document.querySelector('.chat__mainContent template'),
+      TRACK_MESSAGE: document.querySelector('.chat__mainContent'),
+    },
   },
-
-  CONFIRMATIOM: {
-    INPUT: document.querySelector('.createAcc__form-input'),
-    BTN: document.querySelector('.createAcc__form-btn'),
-  }
 }
 
 export const API = {

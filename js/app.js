@@ -1,65 +1,153 @@
 import { format  } from "date-fns";
 import Cookies from "js-cookie";
+import { sendRequest, headers } from "./request.js";
 import { UI, API } from "./view.js";
+import { isValidateEmail } from './isValidateEmail.js';
 
-UI.BTN_SEND_MESSAGE.addEventListener('click', sendMessage);
-UI.FIELD_MESSAGE.addEventListener('keydown', function(event) {
+const socket = new WebSocket(`ws://chat1-341409.oa.r.appspot.com/websockets?${Cookies.get('token')}`);
+
+UI.BLOCKS.CHAT.BTN_SEND_MESSAGE.addEventListener('click', () => sendMessage(event));
+UI.BLOCKS.CHAT.FIELD_MESSAGE.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
     sendMessage();
   }
 });
 
-
 function sendMessage() {
-  const textMessage = UI.TEMPLATE.content.querySelector('p');
-  const timeMessage = UI.TEMPLATE.content.querySelector('span');
+  event.preventDefault();
 
-  textMessage.textContent = UI.FIELD_MESSAGE.value;
-  timeMessage.textContent = format(Date.now(), 'p').slice(0, 5);
+  socket.send(JSON.stringify({
+    text: UI.BLOCKS.CHAT.FIELD_MESSAGE.value
+  }));
 
-  const message = UI.TEMPLATE.content.cloneNode(true);
-
-  trackMessage.append(message);
+  socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    const textMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message p');
+    const timeMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message span');
+    const getNowTime = () => format(Date.now(), 'p').slice(0,5);
+    textMessage.textContent = data.text;
+    timeMessage.textContent = getNowTime();
+    const parentElement = textMessage.parentElement;
+  
+    if (data.user.email === Cookies.get('email')) {
+      parentElement.style.background = 'blue';
+      parentElement.style.alignSelf = 'flex-end';
+    } else {
+      parentElement.style.background = 'gray';
+      parentElement.style.alignSelf = 'flex-start';
+    }
+  
+    const message = UI.BLOCKS.CHAT.TEMPLATE.content.cloneNode(true);
+  
+    UI.BLOCKS.CHAT.TRACK_MESSAGE.prepend(message);
+  };
 }
 
-UI.GET_CODE.BTN.addEventListener('click', postRequest);
+UI.BLOCKS.LOGIN.BTN.addEventListener('click', postRequest);
 
-async function postRequest(event) {
+function postRequest(event) {
   event.preventDefault();
-  const request = await fetch(API.URL, {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:1234',
-    },
-    method: 'POST',
-    body: JSON.stringify({email: UI.GET_CODE.INPUT.value}),
+  const body = {email: UI.BLOCKS.LOGIN.INPUT.value};
+
+  if (!isValidateEmail(body.email)) {
+    alert('Неверный формат почты');
+    return;
+  } 
+
+  Cookies.set('email', UI.BLOCKS.LOGIN.INPUT.value);
+
+  sendRequest('POST', API.URL, body, headers)
+  .then(() => {
+    UI.BLOCKS.LOGIN.BLOCK.classList.remove('active');
+    UI.BLOCKS.CONFIRMATIOM.BLOCK.classList.add('active');
   });
-
-  const data = await request.json();
-  console.log(data);
 }
 
-UI.CONFIRMATIOM.BTN.addEventListener('click', enter);
+UI.BLOCKS.CONFIRMATIOM.BTN.addEventListener('click', enter);
 
-async function enter(event) {
+function enter(event) {
   event.preventDefault();
-  Cookies.set('token', UI.CONFIRMATIOM.INPUT.value)
+  Cookies.set('token', UI.BLOCKS.CONFIRMATIOM.INPUT.value);
+  const body = {name: 'new-name'};
   const token = Cookies.get('token');
-  const URL = 'https://chat1-341409.oa.r.appspot.com/api/user';
+  headers.Authorization = `Bearer ${token}`;
 
-  const request = await fetch(URL, {
-    method: 'PATCH',
-    body: JSON.stringify({name: 'new-name'}),
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:1234',
-    },
+  sendRequest('PATCH', API.URL, body, headers)
+  .then(() => {
+    UI.BLOCKS.CONFIRMATIOM.BLOCK.classList.remove('active');
+    UI.BLOCKS.CHAT.BLOCK.classList.add('active');
+    downloadMessagesHistory();
+  });
+}
+
+async function downloadMessagesHistory() {
+  const URL = 'https://chat1-341409.oa.r.appspot.com/api/messages/';
+  const response = await fetch(URL, {
+    headers: headers,
   });
 
-  const data = await request.json();
-  console.log(data);
+  const data = (await response.json()).messages.reverse();
+  localStorage.setItem('data', JSON.stringify(data));
+  scrollUpdate();
+}
+
+function scrollUpdate() {
+  const data = JSON.parse(localStorage.getItem('data'));
+  const length = data.length;
+  const arrUsers = [];
+  for (let i = 0; i < length; i++) {
+    if (length < 20) {
+      arrUsers.push(data[i]);
+      if (i === length - 1) {
+      localStorage.setItem('arr', JSON.stringify(arrUsers));
+      renderMessages(JSON.parse(localStorage.getItem('arr')));
+      data.splice(0, length);
+      localStorage.setItem('data', JSON.stringify(data));
+      alert('The end');
+      }
+    }
+    if (i === 20) {
+      localStorage.setItem('arr', JSON.stringify(arrUsers));
+      renderMessages(JSON.parse(localStorage.getItem('arr')));
+      data.splice(0,20);
+      localStorage.setItem('data', JSON.stringify(data));
+      break; 
+    }
+    arrUsers.push(data[i]);
+  }
+}
+
+UI.BLOCKS.CHAT.TRACK_MESSAGE.addEventListener('scroll', function () {
+  if (this.scrollHeight - Math.abs(this.scrollTop) === this.clientHeight) {
+    scrollUpdate();
+  }
+});
+
+function renderMessages(data) {
+  const textMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message p');
+  const timeMessage = UI.BLOCKS.CHAT.TEMPLATE.content.querySelector('.message span');
+  const getNowTime = () => format(Date.now(), 'p').slice(0,5);
+
+  data.forEach(item => {
+    textMessage.textContent = item.text;
+    timeMessage.textContent = getNowTime();
+    const parentElement = textMessage.parentElement;
+  
+    if (item.user.email === Cookies.get('email')) {
+      parentElement.style.background = 'blue';
+      parentElement.style.alignSelf = 'flex-end';
+    } else {
+      parentElement.style.background = 'gray';
+      parentElement.style.alignSelf = 'flex-start';
+    }
+  
+    const message = UI.BLOCKS.CHAT.TEMPLATE.content.cloneNode(true);
+  
+    UI.BLOCKS.CHAT.TRACK_MESSAGE.append(message);
+  });
+
+  localStorage.removeItem('arr');
+
+  UI.BLOCKS.CHAT.FIELD_MESSAGE.parentElement.reset(); 
 }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   padding: 0;
   margin: 0;
@@ -8,6 +9,12 @@
 
 body {
   margin: 10px;
+}
+
+.overlay {
+  position: absolute;
+  background: #535353;
+  inset: 0;
 }
 
 button {
@@ -23,7 +30,18 @@ input[type='submit'] {
 }
 
 .chat {
-  max-width: 350px;
+  padding: 30px 50px;
+  display: none;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.chat.active {
+  display: block;
 }
 
 .chat__top {
@@ -45,38 +63,41 @@ input[type='submit'] {
 }
 
 .chat__mainContent {
-  margin: 5px 0;
-  padding: 0 25px;
-  height: 300px;
-  border: 1px solid;
-  overflow: hidden;
-  overflow-y: auto;
+  padding: 8px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  max-height: 424px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 350px;
 }
 
 .chat__mainContent .message {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  align-items: end;
-  margin-bottom: 20px;
-  width: 100%;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+.chat__mainContent .message:not(:first-child) {
+  margin-bottom: 10px;
+}
+
+.chat__mainContent .message span {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  font-size: 11px;
+  margin-left: 15px;
 }
 
 .chat__chatText {
@@ -97,14 +118,24 @@ input[type='submit'] {
   padding: 0 5px;
 }
 
-.createAcc {
-  margin-top: 100px;
+.сonfirmation {
   border: 1px solid;
   padding: 10px 5px;
   width: 350px;
+  display: none;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
-.createAcc__top {
+.сonfirmation.active {
+  display: block;
+}
+
+.сonfirmation__top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -114,11 +145,11 @@ input[type='submit'] {
   margin-bottom: 50px;
 }
 
-.createAcc__top div svg {
+.сonfirmation__top div svg {
   cursor: pointer;
 }
 
-.createAcc__form-item {
+.сonfirmation__form-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -128,40 +159,50 @@ input[type='submit'] {
           flex-direction: column;
 }
 
-.createAcc__form-item label {
+.сonfirmation__form-item label {
   margin-bottom: 5px;
 }
 
-.createAcc__form-item input {
+.сonfirmation__form-item input {
   padding: 3px;
 }
 
-.createAcc__form-item:not(:first-child) {
+.сonfirmation__form-item:not(:first-child) {
   margin-top: 10px;
 }
 
-.createAcc__form input {
+.сonfirmation__form input {
   background: none;
   border: 1px solid;
   padding: 6px;
   margin-top: 10px;
 }
 
-.createAcc__anotherWay {
+.сonfirmation__anotherWay {
   margin-top: 20px;
 }
 
-.createAcc__anotherWay button {
+.сonfirmation__anotherWay button {
   background: none;
   border: none;
   font-size: 16px;
 }
 
 .lognIn {
-  margin-top: 100px;
   border: 1px solid;
   padding: 10px 5px;
   width: 350px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+}
+
+.lognIn.active {
+  display: block;
 }
 
 .lognIn__top {
@@ -217,14 +258,24 @@ input[type='submit'] {
   font-size: 16px;
 }
 
-.reg {
-  margin-top: 100px;
+.settings {
   border: 1px solid;
   padding: 10px 5px;
   width: 350px;
+  display: none;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
-.reg__top {
+.settings.active {
+  display: block;
+}
+
+.settings__top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -234,11 +285,11 @@ input[type='submit'] {
   margin-bottom: 50px;
 }
 
-.reg__top div svg {
+.settings__top div svg {
   cursor: pointer;
 }
 
-.reg__form {
+.settings__form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -248,24 +299,24 @@ input[type='submit'] {
           flex-direction: column;
 }
 
-.reg__form label {
+.settings__form label {
   margin-bottom: 5px;
 }
 
-.reg__form div {
+.settings__form div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.reg__form div input {
+.settings__form div input {
   padding: 3px;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
 
-.reg__form div input[type='submit'] {
+.settings__form div input[type='submit'] {
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;

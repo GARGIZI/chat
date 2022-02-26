@@ -11,9 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <title>Document</title>
+    <title>Chat.com</title>
   </head>
   <body>
+    <div class="overlay"></div>
     <div class="chat">
       <div class="chat__top">
         <button class="chat__top-item setting">Найстроки</button>
@@ -22,20 +23,20 @@
       <div class="chat__mainContent">
         <template>
           <div class="message">
-            <p class="message__text">Я:</p>
+            <p class="message__text"></p>
             <span class="message__time"></span>
           </div>
         </template>
       </div>
       <form action="#" class="chat__chatText">
         <input type="text" placeholder="сообщение..." />
-        <button class="chat__chatText-send">-></button>
+        <input type="submit" value="->" class="chat__chatText-send" />
       </form>
     </div>
-    <div class="createAcc">
-      <div class="createAcc__top">
-        <div class="createAcc__top-title">Подтверждение</div>
-        <div class="createAcc__top-close">
+    <div class="сonfirmation">
+      <div class="сonfirmation__top">
+        <div class="сonfirmation__top-title">Подтверждение</div>
+        <div class="сonfirmation__top-close">
           <svg
             width="18"
             height="18"
@@ -51,15 +52,20 @@
           </svg>
         </div>
       </div>
-      <form action="#" class="createAcc__form">
-        <div class="createAcc__form-item">
+      <form action="#" class="сonfirmation__form">
+        <div class="сonfirmation__form-item">
           <label for="name">Код</label>
-          <input id="name" type="text" required class="createAcc__form-input" />
+          <input
+            id="name"
+            type="text"
+            required
+            class="сonfirmation__form-input"
+          />
         </div>
-        <input type="submit" value="Войти" class="createAcc__form-btn" />
+        <input type="submit" value="Войти" class="сonfirmation__form-btn" />
       </form>
     </div>
-    <div class="lognIn">
+    <div class="lognIn active">
       <div class="lognIn__top">
         <div class="lognIn__top-title">Авторизация</div>
         <div class="lognIn__top-close">
@@ -92,10 +98,10 @@
         <input type="submit" value="Получить код" class="lognIn__form-btn" />
       </form>
     </div>
-    <div class="reg">
-      <div class="reg__top">
-        <div class="reg__top-title">Найстроки</div>
-        <div class="reg__top-close">
+    <div class="settings">
+      <div class="settings__top">
+        <div class="settings__top-title">Найстроки</div>
+        <div class="settings__top-close">
           <svg
             width="18"
             height="18"
@@ -111,7 +117,7 @@
           </svg>
         </div>
       </div>
-      <form action="#" class="reg__form">
+      <form action="#" class="settings__form">
         <label for="name">Имя в чате</label>
         <div class="">
           <input id="name" type="text" placeholder="Стив" />
